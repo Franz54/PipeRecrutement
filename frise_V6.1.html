@@ -1,0 +1,1864 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Frise Recrutement – 6 mois glissants</title>
+        <style>
+            body {
+                font-family: "Segoe UI", system-ui, sans-serif;
+                background: #f5f7fa;
+                margin: 0;
+                padding: 20px;
+                color: #111827;
+                transition:
+                    background 0.2s,
+                    color 0.2s;
+            }
+
+            body.dark {
+                background: #020617;
+                color: #e5e7eb;
+            }
+
+            h1 {
+                text-align: center;
+                background: linear-gradient(135deg, #4f46e5, #059669);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+            }
+
+            body.dark h1 {
+                background: linear-gradient(135deg, #a5b4fc, #6ee7b7);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .subtitle {
+                text-align: center;
+                font-size: 0.9rem;
+                color: #6b7280;
+                margin-bottom: 20px;
+            }
+
+            body.dark .subtitle {
+                color: #9ca3af;
+            }
+
+            .top-bar {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+                margin-bottom: 15px;
+                align-items: center;
+            }
+
+            .nav-buttons button,
+            .view-buttons button,
+            .mode-button {
+                background: #ffffff;
+                border: 1px solid #e5e7eb;
+                color: #374151;
+                padding: 8px 16px;
+                font-size: 0.85rem;
+                cursor: pointer;
+                border-radius: 999px;
+                transition: 0.2s;
+            }
+
+            .nav-buttons button:hover,
+            .view-buttons button:hover,
+            .mode-button:hover {
+                background: #e5e7eb;
+            }
+
+            .view-buttons button.active {
+                background: #4f46e5;
+                color: #ffffff;
+                border-color: #4338ca;
+            }
+
+            body.dark .nav-buttons button,
+            body.dark .view-buttons button,
+            body.dark .mode-button {
+                background: #0f172a;
+                border-color: #1e293b;
+                color: #e5e7eb;
+            }
+
+            body.dark .nav-buttons button:hover,
+            body.dark .view-buttons button:hover,
+            body.dark .mode-button:hover {
+                background: #1f2937;
+            }
+
+            .file-input {
+                font-size: 0.8rem;
+                color: #4b5563;
+            }
+
+            body.dark .file-input {
+                color: #cbd5f5;
+            }
+
+            .file-input input {
+                font-size: 0.8rem;
+            }
+
+            .filters {
+                max-width: 1200px;
+                margin: 0 auto 15px auto;
+                background: #ffffff;
+                border-radius: 12px;
+                padding: 10px 14px;
+                box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+                font-size: 0.8rem;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 10px;
+            }
+
+            body.dark .filters {
+                background: #020617;
+                box-shadow: 0 10px 30px rgba(15, 23, 42, 0.7);
+                border: 1px solid #1f2937;
+            }
+
+            .filters-label {
+                font-weight: 600;
+                color: #4b5563;
+                margin-right: 8px;
+            }
+
+            body.dark .filters-label {
+                color: #e5e7eb;
+            }
+
+            .filters span {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                margin-right: 8px;
+            }
+
+            .filters input[type="checkbox"] {
+                accent-color: #4f46e5;
+                cursor: pointer;
+            }
+
+            .filters .color-dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 999px;
+                display: inline-block;
+            }
+
+            .filters-actions button {
+                background: #f3f4f6;
+                border-radius: 999px;
+                border: 1px solid #e5e7eb;
+                padding: 3px 10px;
+                font-size: 0.75rem;
+                cursor: pointer;
+            }
+
+            .filters-actions button:hover {
+                background: #e5e7eb;
+            }
+
+            body.dark .filters-actions button {
+                background: #0f172a;
+                border-color: #1f2937;
+                color: #e5e7eb;
+            }
+
+            body.dark .filters-actions button:hover {
+                background: #1f2937;
+            }
+
+            .layout {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+            }
+
+            .asap-column {
+                width: 260px;
+                background: #ffffff;
+                border-radius: 18px;
+                box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+                padding: 15px;
+                flex-shrink: 0;
+            }
+
+            body.dark .asap-column {
+                background: #020617;
+                border: 1px solid #1f2937;
+                box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+            }
+
+            .asap-title {
+                font-weight: 600;
+                font-size: 0.95rem;
+                text-align: center;
+                margin-bottom: 10px;
+                color: #b91c1c;
+            }
+
+            body.dark .asap-title {
+                color: #fca5a5;
+            }
+
+            .asap-subtitle {
+                font-size: 0.75rem;
+                text-align: center;
+                color: #6b7280;
+                margin-bottom: 10px;
+            }
+
+            body.dark .asap-subtitle {
+                color: #9ca3af;
+            }
+
+            .asap-info {
+                font-size: 0.75rem;
+                text-align: center;
+                margin-bottom: 10px;
+                color: #6b7280;
+            }
+
+            body.dark .asap-info {
+                color: #9ca3af;
+            }
+
+            .timeline-scroll {
+                overflow-x: auto;
+            }
+
+            .timeline-container {
+                display: flex;
+                gap: 20px;
+                padding-bottom: 10px;
+                min-width: 900px;
+            }
+
+            .month-column {
+                background: #ffffff;
+                padding: 15px;
+                border-radius: 18px;
+                box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+                flex: 0 0 260px;
+                border-top: 5px solid #e5e7eb;
+            }
+
+            body.dark .month-column {
+                background: #020617;
+                border: 1px solid #1f2937;
+                border-top-color: #1d4ed8;
+                box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+            }
+
+            .month-title {
+                font-weight: 600;
+                text-align: center;
+                font-size: 1rem;
+                margin-bottom: 14px;
+                color: #374151;
+                position: sticky;
+                top: 0;
+                background: inherit;
+                padding-bottom: 6px;
+                z-index: 3;
+            }
+
+            body.dark .month-title {
+                color: #e5e7eb;
+            }
+
+            .category {
+                padding: 10px;
+                border-radius: 12px;
+                margin-bottom: 10px;
+                color: #111827;
+                background: #f9fafb;
+                border: 1px solid #e5e7eb;
+            }
+
+            body.dark .category {
+                background: #020617;
+                border-color: #1f2937;
+                color: #e5e7eb;
+            }
+
+            .category-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 4px;
+            }
+
+            .category-title-group {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .category-icon {
+                width: 22px;
+                height: 22px;
+                border-radius: 999px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.9rem;
+                color: #ffffff;
+            }
+
+            .category-title {
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: #111827;
+            }
+
+            body.dark .category-title {
+                color: #e5e7eb;
+            }
+
+            .bubble-count {
+                background: #e5e7eb;
+                min-width: 22px;
+                height: 22px;
+                border-radius: 999px;
+                text-align: center;
+                line-height: 22px;
+                font-size: 0.75rem;
+                font-weight: 600;
+                color: #374151;
+            }
+            .bubble-low {
+                background: #93c5fd;
+                color: #1e3a8a;
+            }
+            .bubble-medium {
+                background: #86efac;
+                color: #065f46;
+            }
+            .bubble-high {
+                background: #c4b5fd;
+                color: #4c1d95;
+            }
+            body.dark .bubble-count {
+                background: #111827;
+                color: #e5e7eb;
+            }
+            body.dark .bubble-low {
+                background: #1e40af;
+                color: #bfdbfe;
+            }
+            body.dark .bubble-medium {
+                background: #064e3b;
+                color: #6ee7b7;
+            }
+            body.dark .bubble-high {
+                background: #5b21b6;
+                color: #ddd6fe;
+            }
+
+            .objective-badge {
+                display: inline-block;
+                margin-top: 2px;
+                margin-bottom: 4px;
+                background: #eef2ff;
+                color: #4338ca;
+                border-radius: 999px;
+                padding: 2px 8px;
+                font-size: 0.7rem;
+            }
+
+            body.dark .objective-badge {
+                background: #1d283a;
+                color: #c7d2fe;
+            }
+
+            .profile-item {
+                background: #ffffff;
+                padding: 6px 8px;
+                border-radius: 8px;
+                margin-top: 6px;
+                font-size: 0.78rem;
+                line-height: 1.3;
+                border: 1px solid #e5e7eb;
+                display: flex;
+                justify-content: space-between;
+                gap: 6px;
+            }
+
+            body.dark .profile-item {
+                background: #020617;
+                border-color: #1f2937;
+            }
+
+            .profile-text {
+                flex: 1;
+            }
+
+            .pitch-button {
+                background: #4f46e5;
+                color: #ffffff;
+                border: none;
+                border-radius: 999px;
+                padding: 4px 8px;
+                font-size: 0.7rem;
+                cursor: pointer;
+                white-space: nowrap;
+                align-self: center;
+            }
+            .pitch-button:hover {
+                background: #4338ca;
+            }
+
+            body.dark .pitch-button {
+                background: #6366f1;
+            }
+            body.dark .pitch-button:hover {
+                background: #4f46e5;
+            }
+
+            .icon-dev {
+                background: #3b82f6;
+            }
+            .icon-qa {
+                background: #8b5cf6;
+            }
+            .icon-po {
+                background: #f97316;
+            }
+            .icon-pm {
+                background: #10b981;
+            }
+            .icon-data {
+                background: #ef4444;
+            }
+
+            .tcd-container {
+                max-width: 1100px;
+                margin: 10px auto;
+                padding: 15px;
+                background: #ffffff;
+                border-radius: 16px;
+                box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+                display: none;
+                font-size: 0.8rem;
+            }
+
+            body.dark .tcd-container {
+                background: #020617;
+                border: 1px solid #1f2937;
+                box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+            }
+
+            .tcd-actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 8px;
+                margin-bottom: 8px;
+            }
+
+            .tcd-actions button {
+                background: #f3f4f6;
+                border-radius: 999px;
+                border: 1px solid #e5e7eb;
+                padding: 4px 10px;
+                font-size: 0.75rem;
+                cursor: pointer;
+            }
+
+            .tcd-actions button:hover {
+                background: #e5e7eb;
+            }
+
+            body.dark .tcd-actions button {
+                background: #0f172a;
+                border-color: #1f2937;
+                color: #e5e7eb;
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th,
+            td {
+                border: 1px solid #e5e7eb;
+                padding: 0;
+                text-align: center;
+            }
+
+            th {
+                padding: 6px 8px;
+                background: #f9fafb;
+                font-weight: 600;
+                color: #374151;
+            }
+
+            body.dark th {
+                background: #020617;
+                color: #e5e7eb;
+                border-color: #1f2937;
+            }
+
+            body.dark td {
+                border-color: #1f2937;
+            }
+
+            .tcd-cell-inner {
+                position: relative;
+                min-height: 64px;
+                padding: 4px 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .tcd-value {
+                font-size: 1rem;
+                font-weight: 600;
+            }
+
+            .tcd-obj-badge,
+            .tcd-delta-badge {
+                position: absolute;
+                right: 4px;
+                padding: 2px 6px;
+                border-radius: 999px;
+                font-size: 0.7rem;
+            }
+
+            .tcd-obj-badge {
+                top: 4px;
+                background: #e5e7eb;
+                color: #374151;
+            }
+
+            .tcd-delta-badge {
+                bottom: 4px;
+                background: #dcfce7;
+                color: #166534;
+            }
+
+            body.dark .tcd-obj-badge {
+                background: #111827;
+                color: #e5e7eb;
+            }
+
+            body.dark .tcd-delta-badge {
+                background: #022c22;
+                color: #6ee7b7;
+            }
+
+            .tcd-no-obj {
+                background: #f9fafb;
+                color: #6b7280;
+            }
+
+            .tcd-no-obj .tcd-obj-badge {
+                background: #facc15;
+                color: #1f2937;
+            }
+
+            .tcd-no-obj .tcd-obj-badge::after {
+                content: " ⚠";
+            }
+
+            .tcd-under {
+                background: #fee2e2;
+            }
+
+            .tcd-on {
+                background: #dcfce7;
+            }
+
+            .tcd-over {
+                background: #ddd6fe;
+            }
+
+            body.dark .tcd-no-obj {
+                background: #020617;
+            }
+
+            body.dark .tcd-under {
+                background: #450a0a;
+            }
+
+            body.dark .tcd-on {
+                background: #064e3b;
+            }
+
+            body.dark .tcd-over {
+                background: #312e81;
+            }
+
+            td.tcd-summary {
+                padding: 6px 8px;
+                font-size: 0.8rem;
+                cursor: pointer;
+            }
+
+            .drill-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(15, 23, 42, 0.45);
+                display: none;
+                z-index: 40;
+            }
+
+            .drill-overlay.open {
+                display: block;
+            }
+
+            .drill-panel {
+                position: fixed;
+                top: 0;
+                right: -600px;
+                width: 600px;
+                height: 100vh;
+                background: #ffffff;
+                box-shadow: -10px 0 30px rgba(15, 23, 42, 0.25);
+                z-index: 50;
+                display: flex;
+                flex-direction: column;
+                transition: right 0.25s ease-out;
+            }
+
+            .drill-panel.open {
+                right: 0;
+            }
+
+            body.dark .drill-panel {
+                background: #020617;
+                border-left: 1px solid #1f2937;
+            }
+
+            .drill-header {
+                padding: 12px 16px;
+                border-bottom: 1px solid #e5e7eb;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            body.dark .drill-header {
+                border-color: #1f2937;
+            }
+
+            .drill-title {
+                font-size: 0.95rem;
+                font-weight: 600;
+            }
+
+            .drill-close {
+                background: transparent;
+                border: none;
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+
+            .drill-content {
+                padding: 10px 16px 16px;
+                overflow-y: auto;
+                font-size: 0.8rem;
+            }
+
+            .drill-meta {
+                font-size: 0.8rem;
+                margin-bottom: 10px;
+                color: #4b5563;
+            }
+
+            body.dark .drill-meta {
+                color: #9ca3af;
+            }
+
+            .drill-profile {
+                border-radius: 10px;
+                border: 1px solid #e5e7eb;
+                padding: 8px 10px;
+                margin-bottom: 8px;
+                background: #f9fafb;
+                display: flex;
+                justify-content: space-between;
+                gap: 6px;
+            }
+
+            body.dark .drill-profile {
+                background: #020617;
+                border-color: #1f2937;
+            }
+
+            .drill-profile-main {
+                font-size: 0.8rem;
+            }
+
+            .drill-profile-main strong {
+                font-size: 0.82rem;
+            }
+
+            .drill-profile-tags {
+                font-size: 0.75rem;
+                color: #6b7280;
+            }
+
+            body.dark .drill-profile-tags {
+                color: #9ca3af;
+            }
+
+            .modal-backdrop {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(15, 23, 42, 0.45);
+                justify-content: center;
+                align-items: center;
+                z-index: 60;
+            }
+
+            .modal {
+                background: #ffffff;
+                border-radius: 16px;
+                max-width: 500px;
+                width: 90%;
+                padding: 18px 18px 14px;
+                box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+            }
+
+            body.dark .modal {
+                background: #020617;
+                border: 1px solid #1f2937;
+                color: #e5e7eb;
+            }
+
+            .modal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 8px;
+            }
+
+            .modal-title {
+                font-size: 0.95rem;
+                font-weight: 600;
+                color: #111827;
+            }
+
+            body.dark .modal-title {
+                color: #e5e7eb;
+            }
+
+            .modal-close {
+                background: transparent;
+                border: none;
+                font-size: 1.1rem;
+                cursor: pointer;
+                color: inherit;
+            }
+
+            .modal-body {
+                font-size: 0.85rem;
+                color: #374151;
+                line-height: 1.5;
+                white-space: pre-wrap;
+            }
+
+            body.dark .modal-body {
+                color: #e5e7eb;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Frise Recrutement – Vision 6 Mois Glissants</h1>
+        <div class="subtitle">
+            Navigation mois par mois · Vue Frise & Vue TCD · Filtre par famille
+            · Colonne ASAP / Sur mission · Tableau de pilotage objectifs vs
+            réalisé
+        </div>
+
+        <div class="top-bar">
+            <div class="nav-buttons">
+                <button onclick="previousMonth()">◀ Mois précédent</button>
+                <button onclick="nextMonth()">Mois suivant ▶</button>
+            </div>
+            <div class="view-buttons">
+                <button id="btnFrise" class="active" onclick="setView('frise')">
+                    Vue frise
+                </button>
+                <button id="btnTcd" onclick="setView('tcd')">Vue TCD</button>
+            </div>
+            <button class="mode-button" onclick="toggleDarkMode()">
+                Mode sombre
+            </button>
+            <div class="file-input">
+                <label for="csvFile">Profils (CSV) :</label>
+                <input
+                    type="file"
+                    id="csvFile"
+                    accept=".csv"
+                    onchange="loadCSV(event)"
+                />
+            </div>
+            <div class="file-input">
+                <label for="objFile">Objectifs (CSV) :</label>
+                <input
+                    type="file"
+                    id="objFile"
+                    accept=".csv"
+                    onchange="loadObjectivesCSV(event)"
+                />
+            </div>
+        </div>
+
+        <div class="filters" id="filters">
+            <span class="filters-label">Filtrer par famille :</span>
+            <span class="filters-actions">
+                <button type="button" onclick="setAllFamilies(true)">
+                    Tout
+                </button>
+                <button type="button" onclick="setAllFamilies(false)">
+                    Aucun
+                </button>
+            </span>
+        </div>
+
+        <div class="layout">
+            <div class="asap-column" id="asapColumn">
+                <div class="asap-title">ASAP / Sur mission</div>
+                <div class="asap-subtitle">
+                    Profils prioritaires à positionner rapidement
+                </div>
+                <div class="asap-info">
+                    (Basé sur les champs <code>mois</code> et
+                    <code>asap</code> du CSV)
+                </div>
+            </div>
+
+            <div class="timeline-scroll">
+                <div class="timeline-container" id="timeline"></div>
+            </div>
+        </div>
+
+        <div class="tcd-container" id="tcdContainer">
+            <h3 style="margin-top: 0; margin-bottom: 8px; font-size: 0.95rem">
+                Vue TCD – Tableau de pilotage (Objectifs vs réalisé, ASAP,
+                écarts)
+            </h3>
+            <div class="tcd-actions">
+                <button type="button" onclick="exportTcdToCSV()">
+                    Exporter CSV
+                </button>
+                <button type="button" onclick="exportTcdToHTML()">
+                    Exporter HTML
+                </button>
+            </div>
+            <div id="tcdTableWrapper"></div>
+        </div>
+
+        <div
+            class="drill-overlay"
+            id="drillOverlay"
+            onclick="closeDrillPanel()"
+        ></div>
+        <div class="drill-panel" id="drillPanel">
+            <div class="drill-header">
+                <div class="drill-title" id="drillTitle"></div>
+                <button class="drill-close" onclick="closeDrillPanel()">
+                    ×
+                </button>
+            </div>
+            <div class="drill-content">
+                <div class="drill-meta" id="drillMeta"></div>
+                <div id="drillContent"></div>
+            </div>
+        </div>
+
+        <div class="modal-backdrop" id="pitchModalBackdrop">
+            <div class="modal">
+                <div class="modal-header">
+                    <div class="modal-title" id="pitchModalTitle">Pitch</div>
+                    <button class="modal-close" onclick="closePitchModal()">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body" id="pitchModalBody"></div>
+            </div>
+        </div>
+
+        <script>
+            const categories = [
+                {
+                    name: "Développement",
+                    key: "dev",
+                    iconClass: "icon-dev",
+                    iconText: "🧩",
+                },
+                {
+                    name: "Test / QA",
+                    key: "qa",
+                    iconClass: "icon-qa",
+                    iconText: "🧪",
+                },
+                {
+                    name: "PO / BA / AMOA",
+                    key: "po",
+                    iconClass: "icon-po",
+                    iconText: "🗂️",
+                },
+                {
+                    name: "Chefs de Projet / PMO",
+                    key: "pm",
+                    iconClass: "icon-pm",
+                    iconText: "📅",
+                },
+                {
+                    name: "Data",
+                    key: "data",
+                    iconClass: "icon-data",
+                    iconText: "📊",
+                },
+            ];
+
+            let offset = 0;
+            let profiles = [];
+            let activeFamilies = new Set(categories.map((c) => c.name));
+            const objectivesMap = {};
+            let lastPivotData = null;
+            let lastMonths = null;
+            let currentTcd = null;
+
+            function linkify(text) {
+                if (!text) return "";
+                const urlRegex = /(https?:\/\/[^\s]+)/g;
+                return text.replace(urlRegex, (match) => {
+                    if (match.toLowerCase().includes("whoz")) {
+                        return `<a href="${match}" target="_blank" rel="noopener noreferrer">Whoz</a>`;
+                    }
+                    return `<a href="${match}" target="_blank" rel="noopener noreferrer">${match}</a>`;
+                });
+            }
+
+            function cleanField(v) {
+                if (!v) return "";
+                let s = String(v).trim();
+                if (s.startsWith('"') && s.endsWith('"')) s = s.slice(1, -1);
+                return s.trim();
+            }
+
+            function parseCSVLine(line) {
+                const result = [];
+                let current = "";
+                let inQuotes = false;
+                for (let ch of line) {
+                    if (ch === '"') {
+                        inQuotes = !inQuotes;
+                        current += ch;
+                    } else if (ch === "," && !inQuotes) {
+                        result.push(current);
+                        current = "";
+                    } else current += ch;
+                }
+                result.push(current);
+                return result;
+            }
+
+            function monthKeyFromDate(d) {
+                return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+            }
+
+            function getBubbleClass(count) {
+                if (count >= 4) return "bubble-high";
+                if (count >= 2) return "bubble-medium";
+                if (count >= 1) return "bubble-low";
+                return "";
+            }
+
+            // Règle C : profil ASAP si (mois == "ASAP") OU (asap flag à yes/oui/...)
+            function isASAP(p) {
+                const mois = cleanField(p.mois || "").toUpperCase();
+                const flag = cleanField(p.asap || "").toLowerCase();
+                const asapFlag = ["yes", "oui", "asap", "true", "1"].includes(
+                    flag,
+                );
+                return mois === "ASAP" || asapFlag;
+            }
+
+            function getDeltaClassForCell(objectif, realised) {
+                if (
+                    objectif === null ||
+                    objectif === undefined ||
+                    isNaN(objectif)
+                ) {
+                    return "tcd-no-obj";
+                }
+                const delta = realised - objectif;
+                if (delta < 0) return "tcd-under";
+                if (delta === 0) return "tcd-on";
+                return "tcd-over";
+            }
+
+            // Données d’exemple par défaut
+            profiles = [
+                {
+                    mois: "2025-11",
+                    famille: "Développement",
+                    trigramme: "JSM",
+                    annees: 6,
+                    s1: "Java",
+                    s2: "Spring",
+                    s3: "REST",
+                    objectif: "2 profils Dev",
+                    pitch: "JSM, 6 ans d’expérience, solide sur Java/Spring dans le contexte énergie, bon positionnement sur projets back-office.",
+                    asap: "no",
+                },
+                {
+                    mois: "2025-11",
+                    famille: "Test / QA",
+                    trigramme: "MLH",
+                    annees: 4,
+                    s1: "Automatisation",
+                    s2: "Selenium",
+                    s3: "API",
+                    objectif: "1 QA auto",
+                    pitch: "MLH, 4 ans, orientée automatisation de tests, adaptée aux contextes avec forte dette de tests.",
+                    asap: "yes",
+                },
+                {
+                    mois: "2025-12",
+                    famille: "PO / BA / AMOA",
+                    trigramme: "SRG",
+                    annees: 8,
+                    s1: "Ateliers",
+                    s2: "US",
+                    s3: "Backlog",
+                    objectif: "2 PO/BA",
+                    pitch: "SRG, 8 ans, forte expérience ateliers et backlog, bonne posture pour projets de transformation SI.",
+                    asap: "no",
+                },
+                {
+                    mois: "2026-01",
+                    famille: "Data",
+                    trigramme: "KRT",
+                    annees: 5,
+                    s1: "PowerBI",
+                    s2: "SQL",
+                    s3: "Dashboards",
+                    objectif: "1 Data",
+                    pitch: "KRT, 5 ans, très à l’aise sur PowerBI/SQL, bon fit pour contexte reporting énergie.",
+                    asap: "yes",
+                },
+                {
+                    mois: "ASAP",
+                    famille: "Chefs de Projet / PMO",
+                    trigramme: "ALX",
+                    annees: 10,
+                    s1: "Pilotage",
+                    s2: "Risques",
+                    s3: "Budget",
+                    objectif: "1 CP senior",
+                    pitch: "ALX, 10 ans, pilotage projet et gestion des risques, adapté aux programmes structurants.",
+                    asap: "no",
+                },
+            ];
+
+            function initFilters() {
+                const filtersDiv = document.getElementById("filters");
+                categories.forEach((cat) => {
+                    const span = document.createElement("span");
+                    span.innerHTML = `
+                        <span class="color-dot ${cat.iconClass}"></span>
+                        <label>
+                            <input type="checkbox" checked data-famille="${cat.name}" onchange="toggleFamilyFilter(event)">
+                            ${cat.name}
+                        </label>
+                    `;
+                    filtersDiv.appendChild(span);
+                });
+            }
+
+            function toggleFamilyFilter(e) {
+                const fam = e.target.getAttribute("data-famille");
+                if (e.target.checked) {
+                    activeFamilies.add(fam);
+                } else {
+                    activeFamilies.delete(fam);
+                }
+                generateTimeline();
+                generateTCD();
+                generateAsapColumn();
+            }
+
+            function setAllFamilies(flag) {
+                activeFamilies = new Set();
+                const checkboxes = document.querySelectorAll(
+                    '#filters input[type="checkbox"][data-famille]',
+                );
+                checkboxes.forEach((cb) => {
+                    cb.checked = flag;
+                    if (flag)
+                        activeFamilies.add(cb.getAttribute("data-famille"));
+                });
+                generateTimeline();
+                generateTCD();
+                generateAsapColumn();
+            }
+
+            function generateAsapColumn() {
+                const container = document.getElementById("asapColumn");
+                const headerHTML = `
+                    <div class="asap-title">ASAP / Sur mission</div>
+                    <div class="asap-subtitle">Profils prioritaires à positionner rapidement</div>
+                    <div class="asap-info">(Basé sur les champs <code>mois</code> et <code>asap</code> du CSV)</div>
+                `;
+                let html = headerHTML;
+
+                categories.forEach((cat) => {
+                    if (!activeFamilies.has(cat.name)) return;
+                    const ps = profiles.filter((p) => {
+                        return p.famille === cat.name && isASAP(p);
+                    });
+
+                    html += `
+                        <div class="category">
+                            <div class="category-header">
+                                <div class="category-title-group">
+                                    <div class="category-icon ${cat.iconClass}">${cat.iconText}</div>
+                                    <div class="category-title">${cat.name}</div>
+                                </div>
+                                <div class="bubble-count ${getBubbleClass(ps.length)}">${ps.length}</div>
+                            </div>
+                            ${
+                                ps.length === 0
+                                    ? `<div style="font-size:0.75rem;color:#6b7280;">Aucun profil ASAP</div>`
+                                    : ""
+                            }
+                            ${ps
+                                .map((p) => {
+                                    const pitch = cleanField(p.pitch || "");
+                                    const trig = cleanField(p.trigramme || "");
+                                    const specs = [p.s1, p.s2, p.s3]
+                                        .filter(Boolean)
+                                        .join(", ");
+                                    return `
+                                        <div class="profile-item">
+                                            <div class="profile-text">
+                                                <strong>${trig || "-"}</strong>${
+                                                    p.annees
+                                                        ? ` (${p.annees} ans)`
+                                                        : ""
+                                                }<br>
+                                                ${specs}
+                                            </div>
+                                            ${
+                                                pitch
+                                                    ? `<button class="pitch-button" onclick="openPitchModal('${encodeURIComponent(
+                                                          trig,
+                                                      )}','${encodeURIComponent(pitch)}')">Pitch</button>`
+                                                    : ""
+                                            }
+                                        </div>`;
+                                })
+                                .join("")}
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+            }
+
+            function generateTimeline() {
+                const container = document.getElementById("timeline");
+                container.innerHTML = "";
+
+                const baseDate = new Date();
+                baseDate.setDate(1);
+
+                for (let i = 0; i < 6; i++) {
+                    let d = new Date(
+                        baseDate.getFullYear(),
+                        baseDate.getMonth() + offset + i,
+                        1,
+                    );
+                    let monthStr = d.toLocaleDateString("fr-FR", {
+                        month: "long",
+                        year: "numeric",
+                    });
+                    let monthKey = monthKeyFromDate(d);
+
+                    let col = document.createElement("div");
+                    col.className = "month-column";
+
+                    let html = `<div class="month-title">${monthStr}</div>`;
+
+                    categories.forEach((cat) => {
+                        if (!activeFamilies.has(cat.name)) return;
+
+                        const ps = profiles.filter(
+                            (p) =>
+                                p.mois === monthKey && p.famille === cat.name,
+                        );
+                        const objectif = cleanField(
+                            ps.find((p) => p.objectif && p.objectif.trim())
+                                ?.objectif || "",
+                        );
+
+                        html += `
+                            <div class="category">
+                                <div class="category-header">
+                                    <div class="category-title-group">
+                                        <div class="category-icon ${cat.iconClass}">${cat.iconText}</div>
+                                        <div class="category-title">${cat.name}</div>
+                                    </div>
+                                    <div class="bubble-count ${getBubbleClass(ps.length)}">${ps.length}</div>
+                                </div>
+                                ${
+                                    objectif
+                                        ? `<div class="objective-badge">Objectif : ${objectif}</div>`
+                                        : ""
+                                }
+                                ${ps
+                                    .map((p) => {
+                                        const pitch = cleanField(p.pitch || "");
+                                        const trig = cleanField(
+                                            p.trigramme || "",
+                                        );
+                                        const specs = [p.s1, p.s2, p.s3]
+                                            .filter(Boolean)
+                                            .join(", ");
+                                        return `
+                                            <div class="profile-item">
+                                                <div class="profile-text">
+                                                    <strong>${trig || "-"}</strong>${
+                                                        p.annees
+                                                            ? ` (${p.annees} ans)`
+                                                            : ""
+                                                    }<br>
+                                                    ${specs}
+                                                </div>
+                                                ${
+                                                    pitch
+                                                        ? `<button class="pitch-button" onclick="openPitchModal('${encodeURIComponent(
+                                                              trig,
+                                                          )}','${encodeURIComponent(
+                                                              pitch,
+                                                          )}')">Pitch</button>`
+                                                        : ""
+                                                }
+                                            </div>`;
+                                    })
+                                    .join("")}
+                            </div>
+                        `;
+                    });
+
+                    col.innerHTML = html;
+                    container.appendChild(col);
+                }
+            }
+
+            function loadCSV(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const lines = e.target.result
+                        .split("\n")
+                        .filter((l) => l.trim());
+                    profiles = lines.slice(1).map((line) => {
+                        const parts = parseCSVLine(line);
+                        const [
+                            mois,
+                            famille,
+                            trigramme,
+                            annees,
+                            s1,
+                            s2,
+                            s3,
+                            objectif,
+                            pitch,
+                            asap,
+                        ] = parts;
+                        return {
+                            mois: cleanField(mois),
+                            famille: cleanField(famille),
+                            trigramme: cleanField(trigramme),
+                            annees: cleanField(annees),
+                            s1: cleanField(s1),
+                            s2: cleanField(s2),
+                            s3: cleanField(s3),
+                            objectif: cleanField(objectif),
+                            pitch: cleanField(pitch),
+                            asap: cleanField(asap),
+                        };
+                    });
+                    generateTimeline();
+                    generateTCD();
+                    generateAsapColumn();
+                };
+                reader.readAsText(file);
+            }
+
+            function loadObjectivesCSV(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const lines = e.target.result
+                        .split("\n")
+                        .filter((l) => l.trim());
+                    Object.keys(objectivesMap).forEach(
+                        (k) => delete objectivesMap[k],
+                    );
+                    lines.slice(1).forEach((line) => {
+                        const parts = parseCSVLine(line);
+                        const [mois, famille, objectif] = parts;
+                        const moisClean = cleanField(mois);
+                        const familleClean = cleanField(famille);
+                        const objStr = cleanField(objectif);
+                        if (!moisClean || !familleClean || !objStr) return;
+                        const objVal = Number(objStr.replace(",", ".").trim());
+                        if (!isNaN(objVal)) {
+                            const key = familleClean + "|||" + moisClean;
+                            objectivesMap[key] = objVal;
+                        }
+                    });
+                    generateTCD();
+                };
+                reader.readAsText(file);
+            }
+
+            function generateTCD() {
+                const wrapper = document.getElementById("tcdTableWrapper");
+                wrapper.innerHTML = "";
+
+                const baseDate = new Date();
+                baseDate.setDate(1);
+                const months = [];
+                for (let i = 0; i < 6; i++) {
+                    let d = new Date(
+                        baseDate.getFullYear(),
+                        baseDate.getMonth() + offset + i,
+                        1,
+                    );
+                    months.push({
+                        key: monthKeyFromDate(d),
+                        label: d.toLocaleDateString("fr-FR", {
+                            month: "short",
+                            year: "2-digit",
+                        }),
+                    });
+                }
+
+                lastMonths = months;
+
+                const pivotData = {};
+                categories.forEach((cat) => {
+                    if (!activeFamilies.has(cat.name)) return;
+                    pivotData[cat.name] = {};
+                    months.forEach((m) => {
+                        pivotData[cat.name][m.key] = {
+                            realised: 0,
+                            asap: 0,
+                            objectif: null,
+                            delta: null,
+                            profils: [],
+                        };
+                    });
+                });
+
+                // Remplir uniquement pour les mois datés (pas "ASAP")
+                profiles.forEach((p) => {
+                    const fam = p.famille;
+                    const mois = p.mois;
+                    if (!pivotData[fam] || !pivotData[fam][mois]) return;
+
+                    const cell = pivotData[fam][mois];
+                    cell.realised++;
+                    if (isASAP(p)) cell.asap++;
+                    cell.profils.push(p);
+                });
+
+                // Injecter les objectifs
+                categories.forEach((cat) => {
+                    if (!activeFamilies.has(cat.name)) return;
+                    months.forEach((m) => {
+                        const key = `${cat.name}|||${m.key}`;
+                        const obj = objectivesMap[key];
+                        if (obj !== undefined && !isNaN(obj)) {
+                            pivotData[cat.name][m.key].objectif = obj;
+                            pivotData[cat.name][m.key].delta =
+                                pivotData[cat.name][m.key].realised - obj;
+                        }
+                    });
+                });
+
+                lastPivotData = pivotData;
+                currentTcd = { pivotData, months };
+
+                let html = `<table><thead><tr>
+                    <th>Famille</th>
+                    <th>ASAP total</th>`;
+
+                months.forEach((m) => {
+                    html += `<th>${m.label}</th>`;
+                });
+
+                html += `<th>Total 6 mois</th></tr></thead><tbody>`;
+
+                categories.forEach((cat) => {
+                    if (!activeFamilies.has(cat.name)) return;
+
+                    // ASAP total = pour toute la famille (règle C)
+                    const asapTotal = profiles.filter(
+                        (p) => p.famille === cat.name && isASAP(p),
+                    ).length;
+
+                    // Réalisé total (6 mois datés)
+                    let realisedTotal = 0;
+                    // Objectif total = somme des objectifs des 6 mois (Option 1)
+                    let objectifTotal = 0;
+                    let objectifDefini = false;
+
+                    months.forEach((m) => {
+                        realisedTotal += pivotData[cat.name][m.key].realised;
+
+                        const obj = pivotData[cat.name][m.key].objectif;
+                        if (obj !== null && !isNaN(obj)) {
+                            objectifTotal += obj;
+                            objectifDefini = true;
+                        }
+                    });
+
+                    let deltaTotal = objectifDefini
+                        ? realisedTotal - objectifTotal
+                        : null;
+                    let heatmapClass = "tcd-no-obj";
+                    if (objectifDefini) {
+                        if (deltaTotal < 0) heatmapClass = "tcd-under";
+                        else if (deltaTotal === 0) heatmapClass = "tcd-on";
+                        else heatmapClass = "tcd-over";
+                    }
+
+                    html += `
+                    <tr>
+                        <td style="text-align:left;padding:6px 8px;">${cat.name}</td>
+                        <td class="tcd-summary drill-asap" data-famille="${encodeURIComponent(cat.name)}">
+                            ${asapTotal}
+                        </td>
+                    `;
+
+                    months.forEach((m) => {
+                        const cell = pivotData[cat.name][m.key];
+                        const realised = cell.realised;
+                        const objectif = cell.objectif;
+                        const delta =
+                            objectif !== null ? realised - objectif : null;
+                        const deltaClass = getDeltaClassForCell(
+                            objectif,
+                            realised,
+                        );
+
+                        html += `
+                            <td>
+                                <div class="tcd-cell ${deltaClass}"
+                                     data-famille="${encodeURIComponent(cat.name)}"
+                                     data-mois="${m.key}">
+                                    <div class="tcd-cell-inner">
+                                        <div class="tcd-value">${realised}</div>
+                                        <div class="tcd-obj-badge">${objectif !== null ? "Obj: " + objectif : "Obj: -"}</div>
+                                        ${
+                                            objectif !== null
+                                                ? `<div class="tcd-delta-badge">Δ ${delta >= 0 ? "+" : "−"}${Math.abs(delta)}</div>`
+                                                : ""
+                                        }
+                                    </div>
+                                </div>
+                            </td>`;
+                    });
+
+                    // --- Cellule TOTAL 6 MOIS ---
+                    html += `
+                        <td>
+                            <div class="tcd-cell ${heatmapClass}">
+                                <div class="tcd-cell-inner">
+                                    <div class="tcd-value">${realisedTotal}</div>
+                                    <div class="tcd-obj-badge">
+                                        ${objectifDefini ? "Obj: " + objectifTotal : "Obj: -"}
+                                    </div>
+                                    ${
+                                        objectifDefini
+                                            ? `<div class="tcd-delta-badge">Δ ${deltaTotal >= 0 ? "+" : "−"}${Math.abs(deltaTotal)}</div>`
+                                            : ""
+                                    }
+                                </div>
+                            </div>
+                        </td>
+                    </tr>`;
+                });
+
+                html += "</tbody></table>";
+                wrapper.innerHTML = html;
+
+                // Drilldown
+                const cells = wrapper.querySelectorAll(".tcd-cell");
+                cells.forEach((cell) => {
+                    cell.addEventListener("click", () => {
+                        const fam = decodeURIComponent(
+                            cell.getAttribute("data-famille"),
+                        );
+                        const moisKey = cell.getAttribute("data-mois");
+                        openDrillPanel(fam, moisKey);
+                    });
+                });
+
+                const asapCells = wrapper.querySelectorAll(".drill-asap");
+                asapCells.forEach((cell) => {
+                    cell.addEventListener("click", () => {
+                        const fam = decodeURIComponent(
+                            cell.getAttribute("data-famille"),
+                        );
+                        openDrillASAP(fam);
+                    });
+                });
+            }
+
+            function openDrillPanel(famille, moisKey) {
+                const cell = lastPivotData?.[famille]?.[moisKey];
+                if (!cell) return;
+
+                const overlay = document.getElementById("drillOverlay");
+                const panel = document.getElementById("drillPanel");
+                const title = document.getElementById("drillTitle");
+                const meta = document.getElementById("drillMeta");
+                const content = document.getElementById("drillContent");
+
+                const monthLabel =
+                    lastMonths.find((m) => m.key === moisKey)?.label || moisKey;
+                title.textContent = `${famille} – ${monthLabel}`;
+
+                const objectif =
+                    cell.objectif !== null && !isNaN(cell.objectif)
+                        ? cell.objectif
+                        : "Non défini ⚠";
+                const deltaStr =
+                    cell.objectif !== null && !isNaN(cell.objectif)
+                        ? `${cell.delta >= 0 ? "+" : "−"}${Math.abs(
+                              cell.delta,
+                          )}`
+                        : "-";
+
+                meta.innerHTML = `
+                    <strong>Réalisé :</strong> ${cell.realised}<br>
+                    <strong>ASAP :</strong> ${cell.asap}<br>
+                    <strong>Objectif :</strong> ${objectif}<br>
+                    <strong>Écart :</strong> ${deltaStr}
+                `;
+
+                if (!cell.profils || cell.profils.length === 0) {
+                    content.innerHTML =
+                        "<div style='font-size:0.8rem;color:#6b7280;'>Aucun profil sur cette période.</div>";
+                } else {
+                    content.innerHTML = cell.profils
+                        .map((p) => renderProfileCard(p))
+                        .join("");
+                }
+
+                overlay.classList.add("open");
+                panel.classList.add("open");
+            }
+
+            function openDrillASAP(famille) {
+                const overlay = document.getElementById("drillOverlay");
+                const panel = document.getElementById("drillPanel");
+                const title = document.getElementById("drillTitle");
+                const meta = document.getElementById("drillMeta");
+                const content = document.getElementById("drillContent");
+
+                title.textContent = `${famille} – ASAP (tous profils)`;
+
+                const all = profiles.filter(
+                    (p) => p.famille === famille && isASAP(p),
+                );
+
+                meta.innerHTML = `<strong>Profils ASAP :</strong> ${all.length}`;
+
+                if (all.length === 0) {
+                    content.innerHTML =
+                        "<div style='font-size:0.8rem;color:#6b7280;'>Aucun profil ASAP.</div>";
+                } else {
+                    content.innerHTML = all
+                        .map((p) => renderProfileCard(p))
+                        .join("");
+                }
+
+                overlay.classList.add("open");
+                panel.classList.add("open");
+            }
+
+            function renderProfileCard(p) {
+                const trig = cleanField(p.trigramme || "-");
+                const specs = [p.s1, p.s2, p.s3].filter(Boolean).join(", ");
+                const pitch = cleanField(p.pitch || "");
+                const mois = cleanField(p.mois || "");
+                return `
+                    <div class="drill-profile">
+                        <div class="drill-profile-main">
+                            <strong>${trig}</strong> ${
+                                p.annees ? `(${p.annees} ans)` : ""
+                            }<br>
+                            <span class="drill-profile-tags">${specs}</span><br>
+                            <span style="font-size:0.75rem;color:#6b7280;">
+                                ${isASAP(p) ? "ASAP" : ""}
+                                ${
+                                    mois
+                                        ? ` · ${mois === "ASAP" ? "Mois: ASAP" : "Mois: " + mois}`
+                                        : ""
+                                }
+                            </span>
+                        </div>
+                        ${
+                            pitch
+                                ? `<button class="pitch-button"
+                                           onclick="openPitchModal('${encodeURIComponent(
+                                               trig,
+                                           )}','${encodeURIComponent(pitch)}')">
+                                       Pitch
+                                   </button>`
+                                : ""
+                        }
+                    </div>
+                `;
+            }
+
+            function closeDrillPanel() {
+                document
+                    .getElementById("drillOverlay")
+                    .classList.remove("open");
+                document.getElementById("drillPanel").classList.remove("open");
+            }
+
+            function exportTcdToCSV() {
+                if (!currentTcd) return;
+
+                const { pivotData, months } = currentTcd;
+                const rows = [
+                    [
+                        "Famille",
+                        "ASAP total",
+                        ...months.map((m) => m.label),
+                        "Total 6 mois",
+                    ],
+                ];
+
+                categories.forEach((cat) => {
+                    if (!activeFamilies.has(cat.name)) return;
+
+                    const asapTotal = profiles.filter(
+                        (p) => p.famille === cat.name && isASAP(p),
+                    ).length;
+
+                    let total6 = 0;
+                    months.forEach((m) => {
+                        total6 += pivotData[cat.name][m.key].realised;
+                    });
+
+                    const row = [cat.name, asapTotal];
+                    months.forEach((m) => {
+                        row.push(pivotData[cat.name][m.key].realised);
+                    });
+                    row.push(total6);
+                    rows.push(row);
+                });
+
+                const csvContent = rows
+                    .map((r) =>
+                        r
+                            .map((v) => {
+                                const s =
+                                    v === null || v === undefined
+                                        ? ""
+                                        : String(v);
+                                if (s.includes(",") || s.includes('"')) {
+                                    return `"${s.replace(/"/g, '""')}"`;
+                                }
+                                return s;
+                            })
+                            .join(","),
+                    )
+                    .join("\n");
+
+                const blob = new Blob([csvContent], {
+                    type: "text/csv;charset=utf-8;",
+                });
+                const url = URL.createObjectURL(blob);
+
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "tcd_frise_recrutement.csv";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            function exportTcdToHTML() {
+                const wrapper = document.getElementById("tcdTableWrapper");
+                const inner = wrapper.innerHTML.trim();
+                if (!inner) return;
+
+                const htmlContent = `<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Export TCD Frise Recrutement</title>
+<style>
+    body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        font-size: 0.85rem;
+        padding: 20px;
+        background: #f5f7fa;
+        color: #111827;
+    }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #e5e7eb; padding: 0; text-align: center; }
+    th { padding: 6px 8px; background: #f9fafb; font-weight: 600; color:#374151; }
+    .tcd-cell-inner {
+        position: relative;
+        min-height: 64px;
+        padding: 4px 6px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+    .tcd-value { font-size: 1rem; font-weight: 600; }
+    .tcd-obj-badge, .tcd-delta-badge {
+        position:absolute;
+        right:4px;
+        padding:2px 6px;
+        border-radius:999px;
+        font-size:0.7rem;
+    }
+    .tcd-obj-badge { top:4px; background:#e5e7eb; color:#374151; }
+    .tcd-delta-badge { bottom:4px; background:#dcfce7; color:#166534; }
+    .tcd-no-obj { background:#f9fafb; color:#6b7280; }
+    .tcd-no-obj .tcd-obj-badge { background:#facc15; color:#1f2937; }
+    .tcd-no-obj .tcd-obj-badge::after { content:" ⚠"; }
+    .tcd-under { background:#fee2e2; }
+    .tcd-on { background:#dcfce7; }
+    .tcd-over { background:#ddd6fe; }
+    td.tcd-summary { padding:6px 8px; font-size:0.8rem; }
+</style>
+</head>
+<body>
+<h2>Tableau de pilotage – Frise Recrutement</h2>
+${inner}
+</body>
+</html>`;
+
+                const blob = new Blob([htmlContent], {
+                    type: "text/html;charset=utf-8;",
+                });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "tcd_frise_recrutement.html";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            function openPitchModal(trigrammeEncoded, pitchEncoded) {
+                const trigramme = decodeURIComponent(trigrammeEncoded || "");
+                const pitch = decodeURIComponent(pitchEncoded || "");
+                const body = document.getElementById("pitchModalBody");
+
+                document.getElementById("pitchModalTitle").textContent =
+                    trigramme ? `Pitch – ${trigramme}` : "Pitch";
+
+                const htmlPitch = linkify(pitch || "");
+                body.innerHTML = htmlPitch || "(Aucun pitch renseigné)";
+
+                document.getElementById("pitchModalBackdrop").style.display =
+                    "flex";
+            }
+
+            function closePitchModal() {
+                document.getElementById("pitchModalBackdrop").style.display =
+                    "none";
+            }
+
+            function toggleDarkMode() {
+                document.body.classList.toggle("dark");
+            }
+
+            function nextMonth() {
+                offset += 1;
+                generateTimeline();
+                generateTCD();
+                generateAsapColumn();
+            }
+
+            function previousMonth() {
+                offset -= 1;
+                generateTimeline();
+                generateTCD();
+                generateAsapColumn();
+            }
+
+            function setView(view) {
+                const friseBtn = document.getElementById("btnFrise");
+                const tcdBtn = document.getElementById("btnTcd");
+                const layout = document.querySelector(".layout");
+                const tcd = document.getElementById("tcdContainer");
+
+                if (view === "frise") {
+                    friseBtn.classList.add("active");
+                    tcdBtn.classList.remove("active");
+                    layout.style.display = "flex";
+                    tcd.style.display = "none";
+                } else {
+                    friseBtn.classList.remove("active");
+                    tcdBtn.classList.add("active");
+                    layout.style.display = "none";
+                    tcd.style.display = "block";
+                }
+            }
+
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "ArrowRight") {
+                    nextMonth();
+                } else if (e.key === "ArrowLeft") {
+                    previousMonth();
+                }
+            });
+
+            document.addEventListener("DOMContentLoaded", () => {
+                const backdrop = document.getElementById("pitchModalBackdrop");
+                backdrop.addEventListener("click", function (e) {
+                    if (e.target === this) {
+                        closePitchModal();
+                    }
+                });
+
+                initFilters();
+                generateTimeline();
+                generateTCD();
+                generateAsapColumn();
+            });
+        </script>
+    </body>
+</html>
