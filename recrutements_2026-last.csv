@@ -4,3 +4,9 @@ mois,famille,trigramme,annees,s1,s2,s3,objectif,pitch,asap
 2026-02,Chefs de Projet / PMO,WTT,10.0,Pilotage,Client,Planning,,"Walter TATIENOU, Chef de Projet Sénior (10 ans), 58k, arrivée le 02/02/2026.",no
 2026-02,Chefs de Projet / PMO,TDR,6.5,Pilotage,Organisation,Risques,,"Thomas DURIEZ, Chef de Projet Confirmé (6.5 ans), 56k, arrivée le 09/02/2026.",no
 2026-04,Développement,YAZ,6.5,Java,Backend,API,,"Yassine AZIZ, Concepteur Développeur Confirmé (6.5 ans), 52k, arrivée le 20/04/2026.",no
+ASAP,Développement,ZAM,7.0,Java,Kafka,Angular,,"Zouhair AMALIK – Fullstack Java/Kafka/Angular, 7 ans, 60k, ASAP, mission.",yes
+ASAP,Chefs de Projet / PMO,SMD,10.0,Pilotage,Coordination,Client,,"Sanae MADRAREI – Chef de projet Sénior, 58k, ASAP, mission.",yes
+ASAP,Chefs de Projet / PMO,WAL,10.0,Pilotage,Organisation,Client,,"Wayl ALLAMI – Chef de projet Sénior, 58k, ASAP, mission. https://www.whoz.com/workspace/601821e73183ea6ac84f775d/talents/687869e34a387848a2aa9f7f/profile",yes
+ASAP,Test / QA,SBC,5.0,Test Lead,Automatisation,Coordination,,"Salim BICHOU – Test Lead Confirmé, 54k, ASAP, mission.",yes
+ASAP,Développement,BBH,8.0,Java,Backend,API,,"Abbes BELHOUL – Développeur Sénior, 58k, ASAP, mission.",yes
+ASAP,PO / BA / AMOA,HBH,7.0,PO,Agilité,Backlog,,"Hajar BOUMHAOUAD – Product Owner Sénior, 56k, ASAP, mission.",yes
